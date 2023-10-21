@@ -65,8 +65,9 @@ app.post("/login/", async (request, response) => {
       response.send("Login success!");
       response.status(200);
     } else {
-      response.send("Invalid password");
       response.status(400);
+      response.send("Invalid password");
+      //response.status(400);
     }
   }
 });
@@ -83,9 +84,10 @@ app.put("/change-password", async (request, response) => {
     response.send("Not Registered");
   } else {
     if (comparePassword === true) {
-      if (newPassword.length < 5) {
-        response.send("Password is too short");
+      if (newPassword.length < 5) { 
         response.status(400);
+        response.send("Password is too short");
+        //response.status(400);
       } else {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         const updateQuery = `UPDATE 
