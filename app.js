@@ -41,8 +41,9 @@ app.post("/register/", async (request, response) => {
     const dbResponse = await db.run(postUserDetails);
 
     if (password.length < 5) {
-      response.send("Password is too short");
       response.status(400);
+      response.send("Password is too short");
+      //response.status(400);
     } else {
       response.status(200);
       response.send("User created successfully");
