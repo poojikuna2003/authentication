@@ -33,8 +33,9 @@ app.post("/register/", async (request, response) => {
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}';`;
   const dbUser = await db.get(selectUserQuery);
   if (dbUser != undefined) {
-    response.send("User already exists");
     response.status(400);
+    response.send("User already exists");
+    
   } else {
     const postUserDetails = `INSERT INTO user (username,name,password,gender,location)
     VALUES ('${username}','${name}','${hashedPassword}','${gender}','${location}');`;
@@ -63,8 +64,9 @@ app.post("/login/", async (request, response) => {
   } else {
     const comparePassword = await bcrypt.compare(password, dbUser.password);
     if (comparePassword) {
-      response.send("Login success!");
       response.status(200);
+      response.send("Login success!");
+      //response.status(200);
     } else {
       response.status(400);
       response.send("Invalid password");
